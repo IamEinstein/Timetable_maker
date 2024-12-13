@@ -2,173 +2,117 @@
 {% block title %}Form{% endblock title %}
 {% block body %}
 
-<div class="m-6 p-4 ms-3 me-3">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50">
+  <!-- Fixed Header and Actions Bar -->
+  <div class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-md">
+    <div class="max-w-5xl mx-auto px-4 py-4">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <!-- Title -->
+        <div class="flex items-center space-x-4">
+          <div class="p-2 bg-blue-100 rounded-xl">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <h1 class="text-2xl font-bold text-gray-900">Teacher Timetable Form</h1>
+        </div>
 
-<div>
-  <h1 style="text-align:center;">Timetable Form</h1>
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-4">
+
+          <button onclick="autoFill()" type="button" 
+                  class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all">
+            Quick Autofill
+          </button>
+          <button type="submit" form="teacherForm"
+                  class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all flex items-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Save All</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <form id="teacherForm" action="{% url 'timetable:teacher_form' %}" method="POST" class="space-y-6">
+      {% csrf_token %}
+      
+      {% for i in no_of_teachers %}
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
+        <div class="p-4 border-b border-gray-100 flex items-center space-x-4">
+          <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-700 font-medium">
+            {{i}}
+          </span>
+          <h2 class="text-lg font-medium text-gray-900">Teacher {{i}}</h2>
+        </div>
+
+        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700" for="teacher_{{i}}_name">Name</label>
+            <input id="teacher_{{i}}_name" name="teacher_{{i}}_name" type="text" required
+                   class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700" for="teacher_{{i}}_subj">Subjects</label>
+            <input id="teacher_{{i}}_subj" name="teacher_{{i}}_subj" type="text" required
+                   class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700" for="teacher_{{i}}_grades">Grades</label>
+            <input id="teacher_{{i}}_grades" name="teacher_{{i}}_grades" type="text" required
+                   class="block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </form>
+  </div>
 </div>
-<h2>Teacher details</h2> 
-<h4 class="fw-light">Enter the following details for each teacher</h4>
-<br>
+
+<!-- Add jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-
-teacher_arr = [
-  "Mr. Chintu",
-  "Mr. Shiva",
-  "Mr. Ram",
-  "Mr. Shyam",
-  "Ms. Bharti",
-  "Ms. Bhatt",
-  "Mr. Arpan",
-  "Ms. Rani",
-  "Mr. Kulkarni",
-  "Ms. Rishi",
-  "Mr. Ayush",
-  "Ms. Swati",
-  "Mr. Dev",
-  "Ms. Priya",
-  "Mr. Varun",
-  "Ms. Maya",
-  "Mr. Surya",
-  "Ms. Keerti",
-  "Mr. Shreyas",
-  "Ms. Gunjan",
-  "Mr. Arjun",
-  "Ms. Gayathri",
-  "Ms. Rekha",
-  "Ms. Kaajal",
-  "Ms. Radha",
-  "Ms. Ananya",
-  "Mr. Swayam",
-];
-
 function autoFill() {
-  document.getElementById("teacher_1_name").value = "Mr. Chintu";
-  document.getElementById("teacher_1_subj").value = "English";
-  document.getElementById("teacher_1_grades").value = "1,2,3,4,5";
+  const teacherData = [
+    { name: "Mr. Chintu", subj: "English", grades: "1,2,3,4,5" },
+    { name: "Mr. Shiva", subj: "Maths", grades: "1,2,3,4,5" },
+    { name: "Mr. Kulkarni", subj: "Science", grades: "1,2,3" },
+    { name: "Ms. Ananya", subj: "Social", grades: "1,2,3" },
+    { name: "Ms. Rekha", subj: "Japanese", grades: "1,2,3" },
+    { name: "Ms. Maya", subj: "Science", grades: "4,5" },
+    { name: "Ms. Rishi", subj: "Social", grades: "4,5" },
+    { name: "Mr. Ram", subj: "Maths", grades: "4,5" },
+    { name: "Mr. Shyam", subj: "English", grades: "6,7,8" },
+    { name: "Ms. Keerti", subj: "Science", grades: "6,7,8" },
+    { name: "Mr. Surya", subj: "Social", grades: "6,7,8,9" },
+    { name: "Mr. Salman", subj: "Maths", grades: "6,7,8,9" },
+    { name: "Mr. Ganshyam", subj: "Social", grades: "6,7,8,9" },
+    { name: "Ms. Reema", subj: "English", grades: "9,10,11,12" },
+    { name: "Ms. Radha", subj: "Physics", grades: "10,11,12" },
+    { name: "Mr. Dev", subj: "Chemistry", grades: "10,11,12" },
+    { name: "Mr. Arpan", subj: "Computers/Bio", grades: "10,11,12" },
+    { name: "Mr. Ayush", subj: "English", grades: "10,11,12" }
+  ];
 
-  document.getElementById("teacher_2_name").value = "Mr. Shiva";
-  document.getElementById("teacher_2_subj").value = "Maths";
-  document.getElementById("teacher_2_grades").value = "1,2,3,4,5";
-
-  document.getElementById("teacher_3_name").value = "Mr. Kulkarni";
-  document.getElementById("teacher_3_subj").value = "Science";
-  document.getElementById("teacher_3_grades").value = "1,2,3";
-
-  document.getElementById("teacher_4_name").value = "Ms. Ananya";
-  document.getElementById("teacher_4_subj").value = "Social";
-  document.getElementById("teacher_4_grades").value = "1,2,3";
-
-  document.getElementById("teacher_5_name").value = "Ms. Rekha";
-  document.getElementById("teacher_5_subj").value = "Japanese";
-  document.getElementById("teacher_5_grades").value = "1,2,3";
-
-  document.getElementById("teacher_6_name").value = "Ms. Maya";
-  document.getElementById("teacher_6_subj").value = "Science";
-  document.getElementById("teacher_6_grades").value = "4,5";
-
-  document.getElementById("teacher_7_name").value = "Ms. Rishi";
-  document.getElementById("teacher_7_subj").value = "Social";
-  document.getElementById("teacher_7_grades").value = "4,5";
-
-  document.getElementById("teacher_8_name").value = "Mr. Ram";
-  document.getElementById("teacher_8_subj").value = "Maths";
-  document.getElementById("teacher_8_grades").value = "4,5";
-
-  document.getElementById("teacher_9_name").value = "Mr. Shyam";
-  document.getElementById("teacher_9_subj").value = "English";
-  document.getElementById("teacher_9_grades").value = "6,7,8";
-
-  document.getElementById("teacher_10_name").value = "Ms. Keerti";
-  document.getElementById("teacher_10_subj").value = "Science";
-  document.getElementById("teacher_10_grades").value = "6,7,8";
-
-  document.getElementById("teacher_11_name").value = "Mr. Surya";
-  document.getElementById("teacher_11_subj").value = "Social";
-  document.getElementById("teacher_11_grades").value = "6,7,8,9";
-
-  document.getElementById("teacher_12_name").value = "Mr. Salman";
-  document.getElementById("teacher_12_subj").value = "Maths";
-  document.getElementById("teacher_12_grades").value = "6,7,8,9";
-
-  document.getElementById("teacher_13_name").value = "Mr. Ganshyam";
-  document.getElementById("teacher_13_subj").value = "Social";
-  document.getElementById("teacher_13_grades").value = "6,7,8,9";
-
-  document.getElementById("teacher_14_name").value = "Ms. Reema";
-  document.getElementById("teacher_14_subj").value = "English";
-  document.getElementById("teacher_14_grades").value = "9,10,11,12";
-
-  document.getElementById("teacher_15_name").value = "Ms. Radha";
-  document.getElementById("teacher_15_subj").value = "Phsyics";
-  document.getElementById("teacher_15_grades").value = "10,11,12";
-
-  document.getElementById("teacher_16_name").value = "Mr. Dev";
-  document.getElementById("teacher_16_subj").value = "Chemistry";
-  document.getElementById("teacher_16_grades").value = "10,11,12";
-
-  document.getElementById("teacher_17_name").value = "Mr. Arpan";
-  document.getElementById("teacher_17_subj").value = "Computers/Bio";
-  document.getElementById("teacher_17_grades").value = "10,11,12";
-
-  document.getElementById("teacher_18_name").value = "Mr. Ayush";
-  document.getElementById("teacher_18_subj").value = "English";
-  document.getElementById("teacher_18_grades").value = "10,11,12";
+  try {
+    teacherData.forEach((teacher, index) => {
+      const teacherNum = index + 1;
+      document.getElementById(`teacher_${teacherNum}_name`).value = teacher.name;
+      document.getElementById(`teacher_${teacherNum}_subj`).value = teacher.subj;
+      document.getElementById(`teacher_${teacherNum}_grades`).value = teacher.grades;
+    });
+    
+    alert('Auto-fill completed successfully!');
+  } catch (error) {
+    console.error('Error in autoFill:', error);
+    alert('Error during auto-fill. Please check console.');
+  }
 }
-
 </script>
-
-<button onclick="autoFill()" class="btn-lg btn btn-outline-success">Autofill</button>
-   
-
-
-<form style="text-align:center;" action="{% url 'timetable:teacher_form' %}" method="POST">
-{% csrf_token %}
-{% for i in no_of_teachers %}
-<p>
-
-  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{i}}"  aria-controls="collapseWidth">
-    Collapse teacher {{i}} info
-  </button>
-</p>
-
-  <div id="collapse_{{i}}" class= "collapse card rounded-1 bg-info-subtle" style="background-colour:#bae6e5" aria-expanded="true">
-   <div class="card-header">Teacher {{i}}</div>
- <div class="row g-1 align-items-center card-body  ">
-  <div class="col-auto">
-<label class="has-text-weight-medium  has-text-centered is-size-5" for="teacher_name">Please enter teacher name</label> 
-<input id="teacher_{{i}}_name" name="teacher_{{i}}_name" class=" margin-5 form-control" aria-describedby="teacher_nameHelpInline" type="text" placeholder="Teacher name" name="teacher_name" id="teacher_name" required>
-  </div>
-  </div>
-
-
-
-
-<div class="row g-1 align-items-center card-body">
-  <div class="col-auto">
-<label class="col-form-label" for="subj_taught">Please enter subjects taught</label> 
-{% comment %} Make this input to dropdown {% endcomment %}
-<input id="teacher_{{i}}_subj" name="teacher_{{i}}_subj" class="form-control"  type="text" placeholder="Subjects taught" name="subj_taught" id="subj_taught" required>
-  </div>
-  </div>
-
-
-<div class="row g-1 align-items-center card-body">
-  <div class="col-auto">
-<label class="has-text-weight-medium  has-text-centered is-size-5" for="grades_taught">Please enter the grades taught (different grades separated by commas)</label> <br>
-<input id="teacher_{{i}}_grades" name="teacher_{{i}}_grades" class="form-control" aria-describedby="grades_taughtHelpInline" type="text" placeholder="Grades taught" name="grades_taught" id="grades_taught" required>
-</div>
-</div>
-</div>
-
-<br>
-<br>
-<br>
-{% endfor %}
-
-
-
-
-<input type="submit" class="btn btn-primary">
-</div>
 {% endblock body %}

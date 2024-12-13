@@ -12,135 +12,123 @@ function autoFill2() {
 }
 </script>
 
+<div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header Section -->
+    <div class="text-center mb-12">
+      <div class="inline-block p-3 rounded-full bg-blue-100 mb-4">
+        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">Timetable Generator</h1>
+      <p class="text-gray-600">Create your perfect schedule in minutes</p>
+    </div>
 
-<div class="mt-6 ps-4 ms-3">
-<h1 style="text-align: center">Timetable Form</h1>
-{% if error %}
-<div class="alert alert-danger p-5 pr-5 mr-5 form-control" role="alert">
-  <h1>{{error}}!!</h1>
-  <p>You didn't input enough amount of teachers, kindly increase the number of teachers so that a timetable can be made
-    Minimum no of teachers needed are 18
-  </p>
-</div>{% endif %}
-<h3>Enter the following details</h3>
-<br>
+    <div class="bg-white rounded-2xl shadow-xl p-8 backdrop-blur-sm bg-opacity-90 relative overflow-hidden">
+      <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-100 rounded-full opacity-50 blur-2xl"></div>
+      
+      {% if error %}
+      <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-lg transform transition-all hover:scale-102" role="alert">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h2 class="text-red-800 font-semibold text-lg">{{error}}</h2>
+            <p class="text-red-700 text-sm">You didn't input enough amount of teachers. Minimum required: 18</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
 
-<button class="btn btn-outline-success btn-lg" onclick="autoFill2()">Autofill</button>
-<br>
-<br>
-<br>
-<form style="text-align: center" method="POST" action="{% url 'timetable:main_form'%}">
-  {% csrf_token %}
-<div class="row g-1 align-items-center">
-    <div class="col-auto">
-      <label
-        class="has-text-weight-medium has-text-centered is-size-5"
-        for="no_of_periods"
-        >Please enter the number of periods</label
-      >
-      <br>
-      <input
-        min="0"
-        max="10"
-        class="form-control"
-        type="number"
-        placeholder="Enter number of periods"
-        name="no_of_periods"
-        id="no_of_periods"
-        required
-      />
+      <button class="mb-8 group inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-all duration-200 hover:shadow-lg" onclick="autoFill2()">
+        <svg class="w-5 h-5 mr-2 transform group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+        Autofill Form
+      </button>
+
+      <form method="POST" action="{% url 'timetable:main_form'%}" class="space-y-8">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Period Count Input -->
+          <div class="form-group transform transition-all duration-200 hover:scale-102">
+            <label for="no_of_periods" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              Number of Periods
+            </label>
+            <input type="number" min="0" max="10" id="no_of_periods" name="no_of_periods"
+              class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              required placeholder="Enter number of periods" />
+          </div>
+
+          <!-- Period Duration Input -->
+          <div class="form-group transform transition-all duration-200 hover:scale-102">
+            <label for="period_duration" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              Period Duration (minutes)
+            </label>
+            <input type="number" min="0" id="period_duration" name="period_duration"
+              class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              required placeholder="Period duration" />
+          </div>
+
+          <!-- Teachers Count Input -->
+          <div class="form-group transform transition-all duration-200 hover:scale-102">
+            <label for="no_of_teachers" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              Number of Teachers
+            </label>
+            <input type="number" min="0" id="no_of_teachers" name="no_of_teachers"
+              class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              required placeholder="Enter number of teachers" />
+          </div>
+
+          <!-- Start Time Input -->
+          <div class="form-group transform transition-all duration-200 hover:scale-102">
+            <label for="start_time" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              School Start Time
+            </label>
+            <input type="time" id="start_time" name="start_time"
+              class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              required />
+          </div>
+
+          <!-- Lunch Period Input -->
+          <div class="form-group transform transition-all duration-200 hover:scale-102">
+            <label for="lunch_period" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+              </svg>
+              Lunch Period
+            </label>
+            <input type="number" min="0" max="10" id="lunch_period" name="lunch_period"
+              class="block w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+              required placeholder="Lunch period" />
+          </div>
+        </div>
+
+        <button type="submit" class="w-full flex justify-center py-4 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 hover:shadow-lg transform hover:-translate-y-0.5">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+          </svg>
+          Generate Timetable
+        </button>
+      </form>
     </div>
   </div>
-  <br>
-
-
-<div class="row g-1 align-items-center">
-    <div class="col-auto">
-      <label
-        class="has-text-weight-medium has-text-centered is-size-5"
-        for="period_duration"
-        >Enter the duration of each period (in minutes)</label
-      >
-      <br>
-      <input
-        min="0"
-        class="form-control"
-        type="number"
-        placeholder="Period duration"
-        name="period_duration"
-        id="period_duration"
-        required
-      />
-    </div>
-  </div>
-  <br>
-
-<div class="row g-1 align-items">
-    <div class="col-auto">
-      <label
-        class="align-content-lg-start justify-content-evenly has-text-weight-medium is-size"
-        for="no_of_teachers"
-        >Number of teachers </label
-      >
-      <br>
-      <input
-        min="0"
-        class="form-control"
-        type="number"
-        placeholder="Enter number of teachers"
-        name="no_of_teachers"
-        id="no_of_teachers"
-        required
-      />
-    </div>
-  </div>
-  <br>
-  <div class="row g-1 align-items-center">
-    <div class="col-auto">
-      <label
-        class="has-text-weight-medium has-text-centered is-size-5"
-        for="start_time"
-        >The time at which school starts</label
-      >
-      <br>
-      <input
-        min="0"
-        class="form-control"
-        type="time"
-        placeholder="start_time"
-        name="start_time"
-        id="start_time"
-        required
-      />
-    </div>
-  </div>
-  <br>
-  <br>
-
-
-  <div class="row g-1 align-items-center">
-    <div class="col-auto">
-      <label
-        class="has-text-weight-medium has-text-centered is-size-5"
-        for="lunch_period"
-        >Please enter the lunch period</label
-      >
-      <br>
-      <input
-        max="10"
-        min="0"
-        class="form-control"
-        type="number"
-        placeholder="Lunch period"
-        name="lunch_period"
-        id="lunch_period"
-        required
-      />
-    </div>
-  </div>
-  <br>
-
-  <input type="submit" class="btn btn-primary"></input>
-</form>
 </div>
 {% endblock body %}

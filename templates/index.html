@@ -2,37 +2,36 @@
 {% block title %}Timetable Maker{% endblock title %}
 {% block body %}
 
-<!-- Navbar -->
-
-<!-- Top part -->
-
-<div class="position-relative m-md-3 text-center bg-light">
-  <div
-    style="
-      background-image: url('https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/2494bd24d94c7c07aa44279f5d3e9591.jpg?alt=media&token=64b47e57-826c-41e6-99d1-b2eef584df3b');
-      background-size: 2000px;
-    "
-    class="overflow-visible bg-img mx-auto"
-  >
-    <br /><br /><br /><br /><br />
-    <h1 class="text-lg display-4 text-white fw-normal">Timetable Maker</h1>
-    <br><br>
-    {% comment %} <h2 class="display-8 text-white">Computer project</h2> {% endcomment %}
-    <p class="lead fw-normal text-white">Smart, Efficient and Simple</p>
-    <br /><br /><br />
-    {% comment %}
-    <a class="btn btn-btn-outline-light" href="{% url 'timetable:main_form' %}"
-      >Try it</a
-    >
-    {% endcomment %}
+<!-- Hero Section -->
+<div class="relative min-h-screen bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900">
+  <div class="absolute inset-0 bg-black/5"></div>
+  <div class="relative z-10 px-4 py-32 mx-auto text-center max-w-7xl">
+    <div class="space-y-8 transform transition-all duration-700">
+      <h1 class="text-6xl font-extrabold tracking-tight text-white sm:text-7xl">
+        <span class="block">Timetable Maker</span>
+        <span class="block text-slate-300">Simplified</span>
+      </h1>
+      <p class="max-w-2xl mx-auto text-xl text-gray-200">
+        Create smart, efficient, and beautiful timetables in seconds
+      </p>
+      <div class="flex items-center justify-center gap-4">
+        <a href="{% url 'timetable:main_form' %}" 
+           class="px-8 py-3 text-lg font-medium text-white bg-slate-600 rounded-full hover:bg-slate-700 transition-all duration-300">
+          Get Started
+        </a>
+      </div>
+    </div>
   </div>
 </div>
-<!-- Adding about info -->
-<section class="py-5 text-center container">
-  <div class="shadow rounded row py-lg-5">
-    <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light" id="about">About</h1>
-      <p class="lead text-muted">
+
+<!-- About Section -->
+<section class="relative py-20 bg-slate-50 overflow-hidden">
+  <div class="container px-4 mx-auto">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-slate-800" id="about">
+        About Our Platform
+      </h2>
+      <p class="mt-4 text-lg text-gray-600">
         We have created a program that automatically creates a customized and
         personalized timetable with certain inputs from users. Timetables
         prevent waste of time and energy: The timetable shows exactly what is to
@@ -41,160 +40,122 @@
         directed in a particular direction which prevents waste of time and
         energy.
       </p>
-      <p>
-        <a href="#" class="btn btn-primary my-2">Top</a>
-      </p>
+      <a href="#" class="inline-flex items-center mt-8 text-slate-600 hover:text-slate-800">
+        <span>Back to top</span>
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <!-- Decorative elements -->
+  <div class="absolute top-0 right-0 -mt-4 transform translate-x-1/2">
+    <svg width="404" height="384" fill="none" viewBox="0 0 404 384">
+      <defs>
+        <pattern id="pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+          <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+        </pattern>
+      </defs>
+      <rect width="404" height="384" fill="url(#pattern)" />
+    </svg>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-white">
+  <div class="container px-4 mx-auto">
+    <h2 class="mb-16 text-4xl font-bold text-center text-slate-800">
+      Powerful Features
+    </h2>
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-3">
+      <!-- Feature cards -->
+      <div class="transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl rounded-2xl overflow-hidden bg-slate-50">
+        <div class="bg-gradient-to-r from-slate-700 to-slate-800 px-6 py-4">
+          <h3 class="text-xl font-semibold text-white">Simple UI</h3>
+        </div>
+        <div class="p-6">
+          <p class="text-gray-600">A user friendly and easy to use UI</p>
+          <img class="mt-4 rounded-lg" src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/SCR-20230121-tq7.png?alt=media&token=ecb94890-91b5-44f2-b32e-d9d7d2df1ed0" alt="UI Screenshot"/>
+        </div>
+      </div>
+
+      <div class="transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl rounded-2xl overflow-hidden bg-slate-50">
+        <div class="bg-gradient-to-r from-slate-800 to-slate-900 px-6 py-4">
+          <h3 class="text-xl font-semibold text-white">Downloadable timetables</h3>
+        </div>
+        <div class="p-6">
+          <p class="text-gray-600">Download your timetables with one click</p>
+          <img class="mt-4 rounded-lg" src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/SCR-20230131-523.png?alt=media&token=88e5aec9-c762-4c24-8073-d60b31548b0c" alt="Download Feature"/>
+        </div>
+      </div>
+
+      <div class="transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl rounded-2xl overflow-hidden bg-slate-50">
+        <div class="bg-gradient-to-r from-slate-700 to-slate-800 px-6 py-4">
+          <h3 class="text-xl font-semibold text-white">Customizable input</h3>
+        </div>
+        <div class="p-6">
+          <p class="text-gray-600">Customize your input exactly how you want</p>
+          <img class="mt-4 rounded-lg" src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/SCR-20230131-57x.png?alt=media&token=8f490fa0-341e-4aa1-8d24-038f56179143" alt="Customization Feature"/>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Features column -->
-<u>
-<h1 class="text-center fw-dark">Features</h1></u>
-<br />
-<main>
-  <div class="m-2 row row-cols-1 row-cols-md-3 mb-3 text-center">
-    <div class="col">
-      <div class="shadow-lg card mb-1 rounded-3 shadow-sm border-info-subtle">
-        <div class="card-header py-3 text-bg-info">
-          <h4 class="my-0 fw-normal">Simple UI</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>A user friendly and easy to use UI</li>
-            <br />
-            <li>
-              <img
-              height="200"
-                class="rounded"
-                width="350"
-                src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/SCR-20230121-tq7.png?alt=media&token=ecb94890-91b5-44f2-b32e-d9d7d2df1ed0"
-                alt=""
-              />
-            </li>
-            <br />
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="shadow-lg card mb-4 rounded-3 shadow-sm border-danger-subtle">
-        <div class="card-header py-3 text-bg-danger border-danger">
-          <h4 class="my-0 fw-normal">Downloadable timetables</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>You can download the timetables made, just by clicking</li>
-            <br />
-            <li>
-              <img
-              height="200"
-                class="rounded"
-                width="350"
-                src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/SCR-20230131-523.png?alt=media&token=88e5aec9-c762-4c24-8073-d60b31548b0c"
-                alt=""
-              />
-            </li>
-          <br>
-
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="shadow-lg card mb-4 rounded-3 shadow-sm border-warning-subtle">
-        <div class="card-header py-3 text-bg-warning border-warning">
-          <h4 class="my-0 fw-normal">Customizable input</h4>
-        </div>
-        <div class="card-body">
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>You can customise your input as u want it to be!</li>
-
-            <br />
-            <li>
-              <img
-                height="200"
-                class="rounded"
-                width="350"
-                src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/SCR-20230131-57x.png?alt=media&token=8f490fa0-341e-4aa1-8d24-038f56179143"
-                alt=""
-              />
-            </li>
-          </ul>
-          <br>
-        </div>
-      </div>
+<!-- CTA Section -->
+<div class="relative py-20 bg-gradient-to-r from-slate-800 to-slate-900">
+  <div class="relative z-10 px-4 mx-auto max-w-7xl">
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-white mb-8">Ready to Create Your Perfect Schedule?</h2>
+      <a href="{% url 'timetable:main_form' %}" 
+         class="inline-flex items-center px-8 py-4 text-lg font-medium text-slate-800 bg-white rounded-full shadow-xl transition-all duration-300 hover:bg-slate-50 hover:scale-105">
+        Get Started Now
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </a>
     </div>
   </div>
-</main>
-<br /><br /><br />
-
-<!-- Try it out part -->
-<div class="d-grid gap-2 col-6 mx-auto">
-  <a
-    href="{% url 'timetable:main_form' %}"
-    class="text-center btn btn-success btn-lg"
-    >Try it out</a
-  >
 </div>
 
-<!-- Adding footer -->
-<div class="container">
-  <footer
-    class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top"
-  >
-    <div class="col mb-3">
-      <p
-        href="/"
-        class="fs-2 text-lg-start d-flex align-items-center mb-3 link-dark text-decoration-none"
-      >
-      <img src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/schedule-planner-icon-in-flat-design-clock-with-calendar-vector.png?alt=media&token=1a4a14d6-d2dd-4752-ba48-2a25a3fbb6ca" width="100" alt="">
-      Timetable Maker
-      </p>
-      <p class="text-muted">&nbsp;© 2022</p>
-    </div>
+<!-- Modern Footer -->
+<footer class="bg-slate-900 pt-16 pb-12">
+  <div class="container px-4 mx-auto">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-4">
+      <div class="col-span-2">
+        <div class="flex items-center space-x-3">
+          <img src="https://firebasestorage.googleapis.com/v0/b/discord-uploads.appspot.com/o/schedule-planner-icon-in-flat-design-clock-with-calendar-vector.png?alt=media&token=1a4a14d6-d2dd-4752-ba48-2a25a3fbb6ca" class="w-12 h-12" alt="Logo"/>
+          <span class="text-2xl font-bold text-white">Timetable Maker</span>
+        </div>
+        <p class="mt-4 text-gray-400">&copy; 2022</p>
+      </div>
 
-    <div class="col mb-3"></div>
+      <div>
+        <h5 class="text-lg font-semibold text-white">Address</h5>
+        <p class="mt-4 text-gray-400">Koto-ku<br/>Tokyo, Japan</p>
+      </div>
 
-    <div class="col mb-3">
-      <h5 id="contact">Address</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <span href="#" class="nav-link p-0 text-muted"
-            >Koto-ku <br />
-            Tokyo, Japan</span
-          >
-        </li>
-      </ul>
-    </div>
+      <div>
+        <h5 class="text-lg font-semibold text-white">Contact</h5>
+        <ul class="mt-4 space-y-2">
+          <li>
+            <a href="https://github.com/rish-kun" class="text-gray-400 hover:text-white">
+              Github: rish-kun
+            </a>
+          </li>
+          <li class="text-gray-400">Email: </li>
+        </ul>
+      </div>
 
-    <div class="col mb-3">
-      <h5>Contact</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <span href="https://github.com/QuantumShinobi" class="nav-link p-0 text-muted"
-            >Github: QuantumShinobi</span
-          >
-        </li>
-        <li class="nav-item mb-2">
-          <span href="#" class="nav-link p-0 text-muted"
-            >Email: </span
-          >
-        </li>
-      </ul>
+      <div>
+        <h5 class="text-lg font-semibold text-slate-300">Made by</h5>
+        <p class="mt-4 text-slate-400">Rishit Verma</p>
+      </div>
     </div>
-
-    <div class="col mb-3">
-      <h5 class="text-success">Made by</h5>
-      <ul class="nav flex-column">
-        <li class="nav-item mb-2">
-          <span href="#" class="nav-link p-0 text-primary-emphasis"
-            >Rishit Verma</span
-          >
-        </li>
-      </ul>
+    <div class="mt-12 pt-8 border-t border-slate-800">
+      <p class="text-center text-slate-400">&copy; 2024 Timetable Maker. All rights reserved.</p>
     </div>
-  </footer>
-</div>
+  </div>
+</footer>
 
 {% endblock body %}
